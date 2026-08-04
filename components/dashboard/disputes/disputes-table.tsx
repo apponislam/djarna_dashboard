@@ -19,6 +19,7 @@ export default function DisputesTable() {
     const [page, setPage] = useState(1);
     const debouncedSearch = useDebounce(searchTerm, 500);
     const t = useTranslations("disputes.table");
+    const tc = useTranslations("common");
 
     const queryParams: any = {
         page,
@@ -117,9 +118,9 @@ export default function DisputesTable() {
                         ) : (
                             disputes.map((item) => (
                                 <tr key={item._id} className="hover:bg-slate-50/50 transition-colors">
-                                    <td className="px-6 py-4 font-medium text-slate-900 font-mono">#{item._id.slice(-6).toUpperCase()}</td>
-                                    <td className="px-6 py-4 text-slate-700">{item.buyer.name}</td>
-                                    <td className="px-6 py-4 text-slate-700">{item.seller.name}</td>
+                                    <td className="px-6 py-4 font-medium text-slate-900 font-mono">#{item._id ? item._id.slice(-6).toUpperCase() : "N/A"}</td>
+                                    <td className="px-6 py-4 text-slate-700">{item.buyer?.name || tc("deletedUser")}</td>
+                                    <td className="px-6 py-4 text-slate-700">{item.seller?.name || tc("deletedUser")}</td>
                                     <td className="px-6 py-4 font-semibold text-slate-900">
                                         {item.payment?.totalAmount || item.order?.totalAmount ? (
                                             <>

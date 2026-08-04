@@ -36,6 +36,7 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
     const [page, setPage] = useState(1);
     const limit = 10;
     const t = useTranslations("orders.table");
+    const tc = useTranslations("common");
 
     const { data: ordersData, isLoading } = useGetAllOrdersQuery({
         page,
@@ -91,11 +92,11 @@ export default function OrdersTable({ search, status }: OrdersTableProps) {
                                 const statusStyle = statusStyles[item.status] || "bg-slate-50 text-slate-600";
                                 return (
                                     <tr key={item._id} className="hover:bg-slate-50/50 transition-colors">
-                                        <td className="px-6 py-4 font-medium text-slate-900">#{item._id.slice(-5).toUpperCase()}</td>
-                                        <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{item.product.title}</td>
-                                        <td className="px-6 py-4 text-slate-700">{item.buyer.name}</td>
-                                        <td className="px-6 py-4 text-slate-700">{item.seller.name}</td>
-                                        <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.totalAmount.toLocaleString()} CFA</td>
+                                        <td className="px-6 py-4 font-medium text-slate-900">#{item._id ? item._id.slice(-5).toUpperCase() : "N/A"}</td>
+                                        <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{item.product?.title || tc("deletedProduct")}</td>
+                                        <td className="px-6 py-4 text-slate-700">{item.buyer?.name || tc("deletedUser")}</td>
+                                        <td className="px-6 py-4 text-slate-700">{item.seller?.name || tc("deletedUser")}</td>
+                                        <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{item.totalAmount?.toLocaleString() || "0"} CFA</td>
                                         <td className="px-6 py-4">
                                             <Badge variant="secondary" className={`${statusStyle} hover:${statusStyle} font-medium flex items-center gap-1 w-fit`}>
                                                 <StatusIcon className="h-3.5 w-3.5" />

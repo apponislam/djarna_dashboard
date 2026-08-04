@@ -14,7 +14,10 @@
         "reset": "Réinitialiser",
         "search": "Rechercher",
         "active": "Actif",
-        "suspended": "Suspendu"
+        "suspended": "Suspendu",
+        "deletedUser": "Utilisateur supprimé",
+        "deletedProduct": "Produit supprimé",
+        "deletedListing": "Annonce supprimée"
     },
     "dashboard": {
         "title": "Aperçu",

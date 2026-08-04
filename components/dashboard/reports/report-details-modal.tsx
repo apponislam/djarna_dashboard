@@ -19,6 +19,7 @@ export default function ReportDetailsModal({
     reportId: string | null;
 }) {
     const t = useTranslations("reports.modal");
+    const tc = useTranslations("common");
     const { data, isLoading, isError } = useGetReportByIdQuery(reportId as string, {
         skip: !reportId || !open,
     });
@@ -167,7 +168,7 @@ export default function ReportDetailsModal({
                                 )}
                                 <div className="space-y-1.5 flex-1">
                                     <h4 className="text-base font-bold text-slate-900">
-                                        {report.reportedItem?.title || "Deleted Listing"}
+                                        {report.reportedItem?.title || tc("deletedListing")}
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm text-slate-600">
                                         <p>
@@ -179,7 +180,7 @@ export default function ReportDetailsModal({
                                         <p>
                                             <span className="font-medium text-slate-400">{t("reportedTargetInfo.listingOwner")}:</span>{" "}
                                             <span className="font-semibold text-slate-800">
-                                                {report.reportedUser?.name || "Deleted User"}
+                                                {report.reportedUser?.name || tc("deletedUser")}
                                             </span>
                                         </p>
                                     </div>
@@ -205,7 +206,7 @@ export default function ReportDetailsModal({
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reporter?.name || "Deleted User"}
+                                        {report.reporter?.name || tc("deletedUser")}
                                         {report.reporter?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reporterInfo.verified")}
@@ -236,7 +237,7 @@ export default function ReportDetailsModal({
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reportedUser?.name || "Deleted User"}
+                                        {report.reportedUser?.name || tc("deletedUser")}
                                         {report.reportedUser?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reportedTargetInfo.verified")}

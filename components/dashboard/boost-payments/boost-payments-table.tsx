@@ -29,6 +29,7 @@ export default function BoostPaymentsTable({ status, type }: BoostPaymentsTableP
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const limit = 10;
     const t = useTranslations("boostPayments.table");
+    const tc = useTranslations("common");
 
     useEffect(() => {
         setPage(1);
@@ -124,7 +125,7 @@ export default function BoostPaymentsTable({ status, type }: BoostPaymentsTableP
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div className="flex flex-col">
-                                                        <span className="font-semibold text-slate-800 leading-tight">{item.userId?.name || "Deleted User"}</span>
+                                                        <span className="font-semibold text-slate-800 leading-tight">{item.userId?.name || tc("deletedUser")}</span>
                                                         <span className="text-xs text-slate-400 truncate max-w-[150px]">{item.userId?.email || "N/A"}</span>
                                                     </div>
                                                 </div>

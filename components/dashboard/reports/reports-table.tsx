@@ -21,6 +21,8 @@ export default function ReportsTable() {
     const [page, setPage] = useState(1);
     const debouncedSearch = useDebounce(searchTerm, 500);
     const t = useTranslations("reports.table");
+    const tc = useTranslations("common");
+    const tModal = useTranslations("reports.modal");
 
     const queryParams: any = {
         page,
@@ -183,7 +185,7 @@ export default function ReportsTable() {
                                                 <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs">{item.reporter?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                                             </Avatar>
                                             <div className="flex flex-col">
-                                                <span className="font-medium text-slate-900">{item.reporter?.name || "Deleted User"}</span>
+                                                <span className="font-medium text-slate-900">{item.reporter?.name || tc("deletedUser")}</span>
                                                 <span className="text-xs text-slate-400 font-mono truncate max-w-35">{item.reporter?.email || item.reporter?.phone || "N/A"}</span>
                                             </div>
                                         </div>
@@ -194,13 +196,13 @@ export default function ReportsTable() {
                                         <div className="flex flex-col gap-0.5">
                                             {item.type === "LISTING" && item.reportedItem ? (
                                                 <>
-                                                    <span className="font-semibold text-slate-800 line-clamp-1">{item.reportedItem?.title || "Deleted Listing"}</span>
+                                                    <span className="font-semibold text-slate-800 line-clamp-1">{item.reportedItem?.title || tc("deletedListing")}</span>
                                                     <span className="text-xs text-slate-500">
-                                                        {t("reportedTargetInfo.listingOwner")}: {item.reportedUser?.name || "Deleted User"}
+                                                        {tModal("reportedTargetInfo.listingOwner")}: {item.reportedUser?.name || tc("deletedUser")}
                                                     </span>
                                                 </>
                                             ) : (
-                                                <span className="font-semibold text-slate-800">{item.reportedUser?.name || "Deleted User"}</span>
+                                                <span className="font-semibold text-slate-800">{item.reportedUser?.name || tc("deletedUser")}</span>
                                             )}
                                         </div>
                                     </td>

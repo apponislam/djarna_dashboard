@@ -14,7 +14,10 @@
         "reset": "Reset",
         "search": "Search",
         "active": "Active",
-        "suspended": "Suspended"
+        "suspended": "Suspended",
+        "deletedUser": "Deleted User",
+        "deletedProduct": "Deleted Product",
+        "deletedListing": "Deleted Listing"
     },
     "dashboard": {
         "title": "Dashboard Overview",

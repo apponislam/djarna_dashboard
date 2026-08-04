@@ -18,6 +18,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
     const [adminNote, setAdminNote] = useState("");
     const [refundAmount, setRefundAmount] = useState("");
     const t = useTranslations("disputes.modal");
+    const tc = useTranslations("common");
 
     const dispute = data?.data;
 
@@ -138,19 +139,19 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                                 <div>
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.productPrice")}</p>
                                     <p className="font-medium text-slate-900">
-                                        {dispute.order.productPrice || "-"} {dispute.payment?.currency || "CFA"}
+                                        {dispute.order?.productPrice || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.shippingCost")}</p>
                                     <p className="font-medium text-slate-900">
-                                        {dispute.order.shippingCost || "-"} {dispute.payment?.currency || "CFA"}
+                                        {dispute.order?.shippingCost || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                                 <div className="col-span-2">
                                     <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">{t("orderDetails.totalAmount")}</p>
                                     <p className="text-xl font-bold text-blue-700">
-                                        {dispute.order.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "CFA"}
+                                        {dispute.order?.totalAmount || dispute.payment?.totalAmount || "-"} {dispute.payment?.currency || "CFA"}
                                     </p>
                                 </div>
                             </div>
@@ -167,7 +168,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">{t("paymentDetails.method")}</p>
-                                    <p className="font-medium text-slate-900">{dispute.payment.method || "-"}</p>
+                                    <p className="font-medium text-slate-900">{dispute.payment?.method || "-"}</p>
                                 </div>
                                 <div>
                                     <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">{t("paymentDetails.status")}</p>
@@ -184,7 +185,7 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                             {t("buyerComplaint.title")}
                         </h3>
                         <div className="border border-red-200 bg-red-50 rounded-xl p-4">
-                            <p className="font-medium text-slate-900 mb-0.5">{dispute.buyer.name}</p>
+                            <p className="font-medium text-slate-900 mb-0.5">{dispute.buyer?.name || tc("deletedUser")}</p>
                             <p className="text-sm text-slate-600 mb-4">{dispute.description}</p>
                             {dispute.images && dispute.images.length > 0 && (
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
