@@ -156,30 +156,30 @@ export default function ReportDetailsModal({
                                 {t("reportedTargetInfo.title")}
                             </h3>
                             <div className="flex flex-col sm:flex-row gap-4 items-start">
-                                {report.reportedItem.images && report.reportedItem.images.length > 0 && (
+                                {report.reportedItem?.images && report.reportedItem.images.length > 0 && (
                                     <div className="w-24 h-24 relative rounded-lg overflow-hidden border border-amber-200 shrink-0 bg-white shadow-sm">
                                         <img
                                             src={getImageUrl(report.reportedItem.images[0])}
-                                            alt={report.reportedItem.title}
+                                            alt={report.reportedItem.title || "Listing"}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
                                 )}
                                 <div className="space-y-1.5 flex-1">
                                     <h4 className="text-base font-bold text-slate-900">
-                                        {report.reportedItem.title}
+                                        {report.reportedItem?.title || "Deleted Listing"}
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm text-slate-600">
                                         <p>
                                             <span className="font-medium text-slate-400">{t("reportedTargetInfo.listingPrice")}:</span>{" "}
                                             <span className="font-semibold text-amber-700">
-                                                {report.reportedItem.price.toLocaleString()} CFA
+                                                {report.reportedItem?.price !== undefined && report.reportedItem?.price !== null ? report.reportedItem.price.toLocaleString() : "0"} CFA
                                             </span>
                                         </p>
                                         <p>
                                             <span className="font-medium text-slate-400">{t("reportedTargetInfo.listingOwner")}:</span>{" "}
                                             <span className="font-semibold text-slate-800">
-                                                {report.reportedUser.name}
+                                                {report.reportedUser?.name || "Deleted User"}
                                             </span>
                                         </p>
                                     </div>
@@ -198,26 +198,26 @@ export default function ReportDetailsModal({
                             </h3>
                             <div className="flex items-center gap-3 mb-3">
                                 <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
-                                    <AvatarImage src={getImageUrl(report.reporter.photo)} alt={report.reporter.name} />
+                                    <AvatarImage src={getImageUrl(report.reporter?.photo)} alt={report.reporter?.name || "Reporter"} />
                                     <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-sm">
-                                        {report.reporter.name?.charAt(0).toUpperCase()}
+                                        {report.reporter?.name?.charAt(0).toUpperCase() || "U"}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reporter.name}
-                                        {report.reporter.verifiedBadge && (
+                                        {report.reporter?.name || "Deleted User"}
+                                        {report.reporter?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reporterInfo.verified")}
                                             </Badge>
                                         )}
                                     </h4>
-                                    <p className="text-xs text-slate-400">{report.reporter.verifiedBadge ? t("reporterInfo.verified") : t("reporterInfo.standard")}</p>
+                                    <p className="text-xs text-slate-400">{report.reporter?.verifiedBadge ? t("reporterInfo.verified") : t("reporterInfo.standard")}</p>
                                 </div>
                             </div>
                             <div className="space-y-1 text-xs text-slate-600">
-                                <p><span className="font-medium text-slate-400">{t("reporterInfo.email")}:</span> {report.reporter.email || "-"}</p>
-                                <p><span className="font-medium text-slate-400">{t("reporterInfo.phone")}:</span> {report.reporter.phone || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reporterInfo.email")}:</span> {report.reporter?.email || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reporterInfo.phone")}:</span> {report.reporter?.phone || "-"}</p>
                             </div>
                         </div>
 
@@ -229,26 +229,26 @@ export default function ReportDetailsModal({
                             </h3>
                             <div className="flex items-center gap-3 mb-3">
                                 <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
-                                    <AvatarImage src={getImageUrl(report.reportedUser.photo)} alt={report.reportedUser.name} />
+                                    <AvatarImage src={getImageUrl(report.reportedUser?.photo)} alt={report.reportedUser?.name || "Reported User"} />
                                     <AvatarFallback className="bg-red-50 text-red-600 font-bold text-sm">
-                                        {report.reportedUser.name?.charAt(0).toUpperCase()}
+                                        {report.reportedUser?.name?.charAt(0).toUpperCase() || "U"}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reportedUser.name}
-                                        {report.reportedUser.verifiedBadge && (
+                                        {report.reportedUser?.name || "Deleted User"}
+                                        {report.reportedUser?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reportedTargetInfo.verified")}
                                             </Badge>
                                         )}
                                     </h4>
-                                    <p className="text-xs text-slate-400">{report.reportedUser.verifiedBadge ? t("reportedTargetInfo.verified") : t("reportedTargetInfo.standard")}</p>
+                                    <p className="text-xs text-slate-400">{report.reportedUser?.verifiedBadge ? t("reportedTargetInfo.verified") : t("reportedTargetInfo.standard")}</p>
                                 </div>
                             </div>
                             <div className="space-y-1 text-xs text-slate-600">
-                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.email")}:</span> {report.reportedUser.email || "-"}</p>
-                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.phone")}:</span> {report.reportedUser.phone || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.email")}:</span> {report.reportedUser?.email || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.phone")}:</span> {report.reportedUser?.phone || "-"}</p>
                             </div>
                         </div>
                     </div>
