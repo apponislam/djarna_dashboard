@@ -87,7 +87,11 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
 
                                 <div className="space-y-1">
                                     <p className="text-slate-500 font-medium">{t("productInfo.orderDate")}</p>
-                                    <p className="font-semibold text-slate-900">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                    <p className="font-semibold text-slate-900">
+                                        {order.createdAt && !isNaN(Date.parse(order.createdAt))
+                                            ? new Date(order.createdAt).toLocaleDateString()
+                                            : "N/A"}
+                                    </p>
                                 </div>
 
                                 <div className="space-y-1">

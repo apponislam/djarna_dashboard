@@ -137,7 +137,11 @@ export default function UserDetailsModal({ open, setOpen, userId }: { open: bool
 
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.memberSince")}</p>
-                                    <p className="font-medium text-slate-900">{new Date(user.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</p>
+                                    <p className="font-medium text-slate-900">
+                                        {user.createdAt && !isNaN(Date.parse(user.createdAt))
+                                            ? new Date(user.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })
+                                            : "N/A"}
+                                    </p>
                                 </div>
                             </div>
 

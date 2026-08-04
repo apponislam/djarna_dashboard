@@ -32,8 +32,8 @@ export default async function RootLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale} className={`${inter.variable} ${geistMono.variable} h-full antialiased font-sans`}>
-            <body className="min-h-full bg-slate-50 flex flex-col">
+        <html lang={locale} className={`${inter.variable} ${geistMono.variable} h-full antialiased font-sans`} suppressHydrationWarning>
+            <body className="min-h-full bg-slate-50 flex flex-col" suppressHydrationWarning>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <ReduxProviders>
                         {children}

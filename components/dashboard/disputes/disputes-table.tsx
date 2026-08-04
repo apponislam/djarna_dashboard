@@ -134,7 +134,11 @@ export default function DisputesTable() {
                                             {item.status}
                                         </Badge>
                                     </td>
-                                    <td className="px-6 py-4 text-slate-500">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                     <td className="px-6 py-4 text-slate-500">
+                                         {item.createdAt && !isNaN(Date.parse(item.createdAt))
+                                             ? new Date(item.createdAt).toLocaleDateString()
+                                             : "N/A"}
+                                     </td>
                                     <td className="px-6 py-4">
                                         <Button onClick={() => handleViewDispute(item)} className="flex items-center gap-1.5 bg-transparent text-blue-600 font-medium hover:text-blue-700">
                                             <Eye className="h-4 w-4" />

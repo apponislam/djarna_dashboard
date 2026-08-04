@@ -124,7 +124,9 @@ export default function ReportDetailsModal({
                                 </p>
                                 <p className="font-medium text-slate-950 flex items-center gap-1.5 text-sm">
                                     <Calendar className="h-4 w-4 text-slate-400" />
-                                    {new Date(report.createdAt).toLocaleString()}
+                                    {report.createdAt && !isNaN(Date.parse(report.createdAt))
+                                        ? new Date(report.createdAt).toLocaleString()
+                                        : "N/A"}
                                 </p>
                             </div>
                             <div className="col-span-1 sm:col-span-2">

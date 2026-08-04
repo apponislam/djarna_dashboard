@@ -216,7 +216,11 @@ export default function ReportsTable() {
                                     </td>
 
                                     {/* Created At */}
-                                    <td className="px-6 py-4 text-slate-500">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4 text-slate-500">
+                                        {item.createdAt && !isNaN(Date.parse(item.createdAt))
+                                            ? new Date(item.createdAt).toLocaleDateString()
+                                            : "N/A"}
+                                    </td>
 
                                     {/* Action */}
                                     <td className="px-6 py-4">

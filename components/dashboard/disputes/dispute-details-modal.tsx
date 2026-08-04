@@ -94,12 +94,20 @@ export default function DisputeDetailsModal({ open, setOpen, disputeId }: { open
                             </div>
                             <div>
                                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.createdAt")}</p>
-                                <p className="font-medium text-slate-900">{new Date(dispute.createdAt).toLocaleDateString()}</p>
+                                <p className="font-medium text-slate-900">
+                                    {dispute.createdAt && !isNaN(Date.parse(dispute.createdAt))
+                                        ? new Date(dispute.createdAt).toLocaleDateString()
+                                        : "N/A"}
+                                </p>
                             </div>
                             {dispute.resolvedAt && (
                                 <div>
                                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">{t("info.resolvedAt")}</p>
-                                    <p className="font-medium text-slate-900">{new Date(dispute.resolvedAt).toLocaleDateString()}</p>
+                                    <p className="font-medium text-slate-900">
+                                        {dispute.resolvedAt && !isNaN(Date.parse(dispute.resolvedAt))
+                                            ? new Date(dispute.resolvedAt).toLocaleDateString()
+                                            : "N/A"}
+                                    </p>
                                 </div>
                             )}
                             {dispute.refundAmount !== undefined && (

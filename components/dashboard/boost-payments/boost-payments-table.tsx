@@ -111,21 +111,21 @@ export default function BoostPaymentsTable({ status, type }: BoostPaymentsTableP
                                         <tr key={item._id} className="hover:bg-slate-50/40 transition-colors">
                                             {/* Transaction ID */}
                                             <td className="px-6 py-4 font-semibold text-slate-800 font-mono text-xs max-w-[120px] truncate" title={item._id}>
-                                                #{item._id.slice(-6).toUpperCase()}
+                                                #{item._id ? item._id.slice(-6).toUpperCase() : "N/A"}
                                             </td>
 
                                             {/* User Info */}
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
                                                     <Avatar className="h-8 w-8 border border-slate-100 shadow-sm">
-                                                        <AvatarImage src={getImageUrl(item.userId?.photo)} alt={item.userId?.name} />
+                                                        <AvatarImage src={getImageUrl(item.userId?.photo)} alt={item.userId?.name || "User"} />
                                                         <AvatarFallback className="bg-blue-50 text-blue-600 text-xs font-bold">
                                                             {item.userId?.name?.slice(0, 2).toUpperCase() || "US"}
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div className="flex flex-col">
-                                                        <span className="font-semibold text-slate-800 leading-tight">{item.userId?.name}</span>
-                                                        <span className="text-xs text-slate-400 truncate max-w-[150px]">{item.userId?.email}</span>
+                                                        <span className="font-semibold text-slate-800 leading-tight">{item.userId?.name || "Deleted User"}</span>
+                                                        <span className="text-xs text-slate-400 truncate max-w-[150px]">{item.userId?.email || "N/A"}</span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -133,7 +133,7 @@ export default function BoostPaymentsTable({ status, type }: BoostPaymentsTableP
                                             {/* Boost Type */}
                                             <td className="px-6 py-4">
                                                 <Badge variant="outline" className="capitalize text-xs font-semibold px-2 py-0.5 select-none bg-blue-50/30 border-blue-100 text-blue-700">
-                                                    {item.type?.toLowerCase()}
+                                                    {item.type?.toLowerCase() || "-"}
                                                 </Badge>
                                             </td>
 
@@ -144,19 +144,23 @@ export default function BoostPaymentsTable({ status, type }: BoostPaymentsTableP
 
                                             {/* Amount */}
                                             <td className="px-6 py-4 font-bold text-slate-800">
-                                                {item.amount?.toLocaleString()} {item.currency}
+                                                {item.amount !== undefined && item.amount !== null ? item.amount.toLocaleString() : "0"} {item.currency || ""}
                                             </td>
 
                                             {/* Status */}
                                             <td className="px-6 py-4">
                                                 <Badge variant="outline" className={`${statusStyle} border font-semibold whitespace-nowrap text-[11px] px-2.5 py-0.5`}>
-                                                    {item.status}
+                                                    {item.status || "UNKNOWN"}
                                                 </Badge>
                                             </td>
 
                                             {/* Paid At */}
                                             <td className="px-6 py-4 text-slate-500 text-xs font-medium">
-                                                {item.paidAt ? new Date(item.paidAt).toLocaleDateString() : new Date(item.createdAt).toLocaleDateString()}
+                                                {item.paidAt && !isNaN(Date.parse(item.paidAt)) 
+                                                    ? new Date(item.paidAt).toLocaleDateString() 
+                                                    : (item.createdAt && !isNaN(Date.parse(item.createdAt)) 
+                                                        ? new Date(item.createdAt).toLocaleDateString() 
+                                                        : "N/A")}
                                             </td>
 
                                             {/* Actions */}
