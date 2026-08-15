@@ -4,8 +4,9 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Loader2, XCircle, CheckCircle2, ShieldAlert, User, Package, Calendar } from "lucide-react";
+import { Loader2, XCircle, CheckCircle2, ShieldAlert, User, Package, Calendar, Trash2 } from "lucide-react";
 import { useGetReportByIdQuery, useUpdateReportStatusMutation, type TReportStatus } from "@/redux/features/report/reportApi";
+import { useDeleteProductByAdminMutation } from "@/redux/features/product/productApi";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -24,6 +25,7 @@ export default function ReportDetailsModal({
         skip: !reportId || !open,
     });
     const [updateStatus, { isLoading: isUpdating }] = useUpdateReportStatusMutation();
+    const [deleteProductByAdmin, { isLoading: isDeletingProduct }] = useDeleteProductByAdminMutation();
 
     const report = data?.data;
 
@@ -42,6 +44,18 @@ export default function ReportDetailsModal({
         } catch (error) {
             console.error("Failed to update status", error);
             toast.error(t("actions.errorMessage"));
+        }
+    };
+
+    const handleDeleteProduct = async () => {
+        const productId = report?.reportedItem?._id;
+        if (!productId) return;
+        try {
+            await deleteProductByAdmin(productId).unwrap();
+            toast.success(t("actions.deleteProductSuccess"));
+        } catch (error) {
+            console.error("Failed to delete product", error);
+            toast.error(t("actions.deleteProductError"));
         }
     };
 
@@ -255,29 +269,49 @@ export default function ReportDetailsModal({
                     </div>
 
                     {/* Action Controls */}
-                    {report.status !== "RESOLVED" && (
-                        <div className="pt-4 border-t space-y-3">
-                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                                {t("actions.title")}
-                            </h3>
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                {report.status === "OPEN" && (
-                                    <Button
-                                        onClick={() => handleUpdateStatus("IN_REVIEW")}
-                                        disabled={isUpdating}
-                                        variant="outline"
-                                        className="flex-1 py-5 border-orange-200 text-orange-700 hover:bg-orange-50 cursor-pointer text-sm font-semibold"
-                                    >
-                                        {isUpdating ? (
-                                            <>
-                                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                                {t("actions.updating")}
-                                            </>
-                                        ) : (
-                                            t("actions.markInReview")
-                                        )}
-                                    </Button>
-                                )}
+                    <div className="pt-4 border-t space-y-3">
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            {t("actions.title")}
+                        </h3>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            {report.type === "LISTING" && report.reportedItem?._id && (
+                                <Button
+                                    onClick={handleDeleteProduct}
+                                    disabled={isDeletingProduct}
+                                    variant="outline"
+                                    className="flex-1 py-5 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer text-sm font-semibold"
+                                >
+                                    {isDeletingProduct ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            {t("actions.deletingProduct")}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Trash2 className="w-4 h-4 mr-2" />
+                                            {t("actions.deleteProduct")}
+                                        </>
+                                    )}
+                                </Button>
+                            )}
+                            {report.status === "OPEN" && (
+                                <Button
+                                    onClick={() => handleUpdateStatus("IN_REVIEW")}
+                                    disabled={isUpdating}
+                                    variant="outline"
+                                    className="flex-1 py-5 border-orange-200 text-orange-700 hover:bg-orange-50 cursor-pointer text-sm font-semibold"
+                                >
+                                    {isUpdating ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            {t("actions.updating")}
+                                        </>
+                                    ) : (
+                                        t("actions.markInReview")
+                                    )}
+                                </Button>
+                            )}
+                            {report.status !== "RESOLVED" && (
                                 <Button
                                     onClick={() => handleUpdateStatus("RESOLVED")}
                                     disabled={isUpdating}
@@ -292,9 +326,9 @@ export default function ReportDetailsModal({
                                         t("actions.markResolved")
                                     )}
                                 </Button>
-                            </div>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>
