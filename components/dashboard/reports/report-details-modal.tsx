@@ -51,8 +51,9 @@ export default function ReportDetailsModal({
         const productId = report?.reportedItem?._id;
         if (!productId) return;
         try {
-            await deleteProductByAdmin(productId).unwrap();
+            await deleteProductByAdmin({ id: productId, reportId: reportId || undefined }).unwrap();
             toast.success(t("actions.deleteProductSuccess"));
+            setOpen(false);
         } catch (error) {
             console.error("Failed to delete product", error);
             toast.error(t("actions.deleteProductError"));
