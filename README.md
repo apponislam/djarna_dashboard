@@ -1,8 +1,8 @@
 # Djarna Admin Dashboard 🚀
 
-[![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-VISIT_SITE-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://dashboard.djarna.com)
-[![Google Play](https://img.shields.io/badge/Google_Play-GET_IT_ON-34A853?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.mohamed.djarna)
-[![App Store](https://img.shields.io/badge/App_Store-DOWNLOAD_ON-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/us/app/djarna/id6787214492)
+> [<img src="https://img.shields.io/badge/Web_Dashboard-dashboard.djarna.com-4F46E5?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Web Dashboard" />](https://dashboard.djarna.com)  
+> [<img src="https://img.shields.io/badge/Google_Play-Djarna_App-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Google Play Store" />](https://play.google.com/store/apps/details?id=com.mohamed.djarna)  
+> [<img src="https://img.shields.io/badge/App_Store-Djarna_App-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Apple App Store" />](https://apps.apple.com/us/app/djarna/id6787214492)
 
 > 🖥️ **Live Admin Dashboard**: [https://dashboard.djarna.com](https://dashboard.djarna.com)  
 > 🤖 **Android Mobile App (Google Play)**: [com.mohamed.djarna](https://play.google.com/store/apps/details?id=com.mohamed.djarna)  
@@ -17,15 +17,15 @@ A comprehensive, enterprise-grade, multi-language **Admin Management Dashboard**
 - [Overview](#-overview)
 - [Architecture & Design System](#-architecture--design-system)
 - [Key Features & Core Modules](#-key-features--core-modules)
-  - [1. Executive Analytics & Dashboard](#1-executive-analytics--dashboard)
-  - [2. Identity & KYC Verification System](#2-identity--kyc-verification-system)
-  - [3. User Management & Access Control](#3-user-management--access-control)
-  - [4. Moderation & Report Center](#4-moderation--report-center)
-  - [5. Order & Transaction Management](#5-order--transaction-management)
-  - [6. Dispute Resolution Center](#6-dispute-resolution-center)
-  - [7. Financials, Payments & Commission Control](#7-financials-payments--commission-control)
-  - [8. Boost Packs & Marketplace Promotion](#8-boost-packs--marketplace-promotion)
-  - [9. Category Taxonomy & Global System Settings](#9-category-taxonomy--global-system-settings)
+    - [1. Executive Analytics & Dashboard](#1-executive-analytics--dashboard)
+    - [2. Identity & KYC Verification System](#2-identity--kyc-verification-system)
+    - [3. User Management & Access Control](#3-user-management--access-control)
+    - [4. Moderation & Report Center](#4-moderation--report-center)
+    - [5. Order & Transaction Management](#5-order--transaction-management)
+    - [6. Dispute Resolution Center](#6-dispute-resolution-center)
+    - [7. Financials, Payments & Commission Control](#7-financials-payments--commission-control)
+    - [8. Boost Packs & Marketplace Promotion](#8-boost-packs--marketplace-promotion)
+    - [9. Category Taxonomy & Global System Settings](#9-category-taxonomy--global-system-settings)
 - [State Management & RTK Query Architecture](#-state-management--rtk-query-architecture)
 - [Security & Authentication Specs](#-security--authentication-specs)
 - [Internationalization (i18n) & Localization](#-internationalization-i18n--localization)
@@ -50,10 +50,11 @@ A comprehensive, enterprise-grade, multi-language **Admin Management Dashboard**
 The **Djarna Admin Dashboard** serves as the central control plane for the Djarna ecosystem (Web & Mobile applications). Designed for high-volume marketplace operations, it handles everything from seller onboarding and identity verification to transaction dispute mediation and platform monetization.
 
 ### Key Highlights:
+
 - **Live Production URL**: [https://dashboard.djarna.com](https://dashboard.djarna.com)
 - **Official Mobile Applications**:
-  - Google Play Store: [com.mohamed.djarna](https://play.google.com/store/apps/details?id=com.mohamed.djarna)
-  - Apple App Store: [Djarna iOS App](https://apps.apple.com/us/app/djarna/id6787214492)
+    - Google Play Store: [com.mohamed.djarna](https://play.google.com/store/apps/details?id=com.mohamed.djarna)
+    - Apple App Store: [Djarna iOS App](https://apps.apple.com/us/app/djarna/id6787214492)
 - **Next.js 16 (App Router)** & **React 19** architecture for high performance and optimal client hydration.
 - **Automated Re-Authentication & Token Refresh**: Built-in RTK Query base query wrapper with automatic 401 handling.
 - **Multilingual Support**: Real-time switching between English (`en`) and French (`fr`) powered by `next-intl`.
@@ -92,52 +93,61 @@ The application relies on modular layer separation to isolate state logic, UI pr
 ## 🌟 Key Features & Core Modules
 
 ### 1. Executive Analytics & Dashboard
+
 - **Financial & Volume KPI Widgets**: Live totals for daily/monthly revenue, net profit, total platform transactions, open dispute counts, and active reports.
 - **Interactive Charting**:
-  - `RevenueChart.tsx`: Multi-period revenue analysis.
-  - `OrdersChart.tsx`: Order velocity and volume metrics.
-  - `CategoryPerformanceChart.tsx`: Top sales categories and user demand heatmaps.
-  - `FinancialOverview.tsx`: Consolidated gross profit vs. payout breakdowns.
+    - `RevenueChart.tsx`: Multi-period revenue analysis.
+    - `OrdersChart.tsx`: Order velocity and volume metrics.
+    - `CategoryPerformanceChart.tsx`: Top sales categories and user demand heatmaps.
+    - `FinancialOverview.tsx`: Consolidated gross profit vs. payout breakdowns.
 - **Live Activity Feed**: Real-time activity log tracking user signups, report flags, boost pack purchases, and identity submissions.
 
 ### 2. Identity & KYC Verification System (`/verifications`)
+
 - **KYC Document Inspection**: Inspect government-issued identity documents (CNI, Passport, Driving License) submitted by sellers and service providers.
 - **Selfie Match Verification**: Visual audit of selfie verification photos against identity document attachments.
 - **Verification Badges**: Assign or revoke the official `verifiedBadge` status to build buyer trust on the marketplace.
 - **Audit Logs**: Maintain timestamped administrative review decisions (Approve, Request Re-submission, Reject with Reason).
 
 ### 3. User Management & Access Control (`/users`)
+
 - **User Directory**: Unified listing of Buyers, Sellers, Delivery Agents, and Service Providers.
 - **Status Control**: Account locking, ban mechanisms, suspension toggles, and administrative password resets (`setUserPasswordByAdmin`).
 - **Profile Deep-Dive**: View user transaction history, linked listings, verified contact info (email/phone), and referral metrics (`validateReferralCode`).
 
 ### 4. Moderation & Report Center (`/reports`)
+
 - **Listing & User Stream Filtering**: Separate queues for **Listing Reports** (scams, counterfeits, price gouging) and **User Reports** (impersonation, abusive behavior).
 - **Report Lifecycle Workflow**: Transition reports through `OPEN`, `IN_REVIEW`, and `RESOLVED` statuses.
 - **Diagnostic Inspector Modal**:
-  - Displays reporter profiles (`photo`, `name`, `verifiedBadge`).
-  - Displays reported target details (`reportedItem` title, price, images, or `reportedUser` profile).
-  - Reason tags and granular complaint descriptions.
+    - Displays reporter profiles (`photo`, `name`, `verifiedBadge`).
+    - Displays reported target details (`reportedItem` title, price, images, or `reportedUser` profile).
+    - Reason tags and granular complaint descriptions.
 
 ### 5. Order & Transaction Management (`/orders`)
+
 - **Fulfillment Tracker**: Track orders across fulfillment stages (`PENDING`, `PROCESSING`, `SHIPPED`, `DELIVERED`, `CANCELLED`).
 - **Order Inspector**: Review item pricing, applied commission fees, delivery addresses, and customer notes.
 
 ### 6. Dispute Resolution Center (`/disputes`)
+
 - **Order Conflicts Hub**: Dedicated resolution dashboard for mediating buyer-seller claims (item not received, damaged items, unauthorized transactions).
 - **Evidence Review**: Review buyer-seller conversation logs and uploaded photo/video proof.
 - **Action Triggers**: Execute partial refunds, full order cancellations, or approve seller payout releases.
 
 ### 7. Financials, Payments & Commission Control (`/payments`, `/commission`)
+
 - **Payment Logs**: Audit payment gateway receipts, transaction IDs, timestamped status badges, and payout schedules.
 - **Commission Rates**: Configure marketplace commission percentages by category or fixed seller fee structures.
 - **Payout Authorization**: Review pending seller payout requests and flag high-risk transactions.
 
 ### 8. Boost Packs & Marketplace Promotion (`/boost-packs`, `/boost-payments`)
+
 - **Boost Package Configuration**: Create and manage seller promotion packages (e.g., Homepage Spotlight, Top of Category, Urgent Badges).
 - **Transaction Logs**: Monitor boost purchases, package duration timers, active promotion slots, and revenue generated from promotion sales.
 
 ### 9. Category Taxonomy & Global System Settings (`/categories`, `/settings`)
+
 - **Marketplace Categories**: Hierarchical category manager for adding, updating, and reordering listing categories and custom item attributes.
 - **System Configuration**: Manage platform-wide maintenance mode, global support emails/phones, terms of service URLs, and SMTP integration settings.
 
@@ -149,22 +159,11 @@ The application uses **RTK Query** with tag invalidation for instant optimistic 
 
 ```typescript
 // baseApi.ts Tag Spectrum
-tagTypes: [
-  "User",
-  "BoostPack",
-  "Settings",
-  "IdentityVerification",
-  "Category",
-  "Dashboard",
-  "Order",
-  "Activity",
-  "Dispute",
-  "Payment",
-  "Report"
-]
+tagTypes: ["User", "BoostPack", "Settings", "IdentityVerification", "Category", "Dashboard", "Order", "Activity", "Dispute", "Payment", "Report"];
 ```
 
 ### Feature Slices & APIs (`redux/features/`):
+
 - `auth`: Authentication state, token persistence, and role decoding.
 - `report`: Report stats, list filters, detail queries, and status updates.
 - `users`: User queries, status toggles, and password management.
@@ -188,10 +187,11 @@ tagTypes: [
 ## 🌐 Internationalization (i18n) & Localization
 
 Built using **`next-intl`**, supporting multi-language operations:
+
 - **Languages**: English (`en`) & French (`fr`).
 - **Translation Files**:
-  - `messages/en.json`: Comprehensive key-value mappings for English UI strings.
-  - `messages/fr.json`: Comprehensive key-value mappings for French UI strings.
+    - `messages/en.json`: Comprehensive key-value mappings for English UI strings.
+    - `messages/fr.json`: Comprehensive key-value mappings for French UI strings.
 - **Locale Route Wrapper**: `app/[locale]/` ensures SEO-friendly language prefixing and seamless switching.
 
 ---
@@ -199,27 +199,28 @@ Built using **`next-intl`**, supporting multi-language operations:
 ## 🛠 Tech Stack & Package Dependencies
 
 ### Dependencies Overview
+
 ```json
 {
-  "dependencies": {
-    "next": "16.2.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "@base-ui/react": "^1.3.0",
-    "lucide-react": "^1.7.0",
-    "next-intl": "^4.13.0",
-    "next-themes": "^0.4.6",
-    "recharts": "^3.8.0",
-    "redux-persist": "^6.0.0",
-    "shadcn": "^4.1.1",
-    "socket.io-client": "^4.8.3",
-    "sonner": "^2.0.7",
-    "tailwind-merge": "^3.5.0",
-    "tw-animate-css": "^1.4.0",
-    "date-fns": "^4.1.0",
-    "cmdk": "^1.1.1",
-    "embla-carousel-react": "^8.6.0"
-  }
+    "dependencies": {
+        "next": "16.2.1",
+        "react": "19.2.4",
+        "react-dom": "19.2.4",
+        "@base-ui/react": "^1.3.0",
+        "lucide-react": "^1.7.0",
+        "next-intl": "^4.13.0",
+        "next-themes": "^0.4.6",
+        "recharts": "^3.8.0",
+        "redux-persist": "^6.0.0",
+        "shadcn": "^4.1.1",
+        "socket.io-client": "^4.8.3",
+        "sonner": "^2.0.7",
+        "tailwind-merge": "^3.5.0",
+        "tw-animate-css": "^1.4.0",
+        "date-fns": "^4.1.0",
+        "cmdk": "^1.1.1",
+        "embla-carousel-react": "^8.6.0"
+    }
 }
 ```
 
@@ -228,42 +229,46 @@ Built using **`next-intl`**, supporting multi-language operations:
 ## 🚀 Getting Started & Local Setup
 
 ### Prerequisites
+
 - **Node.js**: v18.17.0 or higher
 - **npm**: v9.0.0 or higher
 
 ### Local Environment Setup
 
 1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/apponislam/djarna_dashboard.git
-   cd djarna_dashboard
-   ```
+
+    ```bash
+    git clone https://github.com/apponislam/djarna_dashboard.git
+    cd djarna_dashboard
+    ```
 
 2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 3. **Set Up Environment Variables**:
    Create a `.env.local` file in the root folder:
-   ```env
-   NEXT_PUBLIC_API_URL=http://localhost:5000
-   NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
-   ```
+
+    ```env
+    NEXT_PUBLIC_API_URL=http://localhost:5000
+    NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
+    ```
 
 4. **Start Development Server**:
-   ```bash
-   npm run dev
-   ```
-   Navigate to [http://localhost:3020](http://localhost:3020).
+    ```bash
+    npm run dev
+    ```
+    Navigate to [http://localhost:3020](http://localhost:3020).
 
 ---
 
 ## ⚙️ Environment Configuration
 
-| Variable | Type | Description | Example |
-| :--- | :--- | :--- | :--- |
-| `NEXT_PUBLIC_API_URL` | String | Base URL for REST API endpoints | `https://api.djarna.com` |
+| Variable                 | Type   | Description                                 | Example                  |
+| :----------------------- | :----- | :------------------------------------------ | :----------------------- |
+| `NEXT_PUBLIC_API_URL`    | String | Base URL for REST API endpoints             | `https://api.djarna.com` |
 | `NEXT_PUBLIC_SOCKET_URL` | String | Base URL for Socket.io websocket connection | `https://api.djarna.com` |
 
 ---
@@ -282,6 +287,7 @@ Built using **`next-intl`**, supporting multi-language operations:
 Production deployments are automated via GitHub Actions in `.github/workflows/deploy.yml`.
 
 ### Deployment Workflow (`deploy.yml`):
+
 ```yaml
 name: Deploy Djarna Dashboard
 
