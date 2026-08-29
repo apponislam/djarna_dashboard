@@ -25,8 +25,8 @@ type FormValues = {
 export default function LoginPage() {
     const { register, handleSubmit } = useForm<FormValues>({
         defaultValues: {
-            phone: "+8801100000000",
-            password: "123456",
+            phone: "",
+            password: "",
         },
     });
     const [login, { isLoading }] = useLoginMutation();
@@ -88,7 +88,14 @@ export default function LoginPage() {
                             </Label>
                             <div className="relative group">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
-                                <Input id="password" type="password" placeholder="••••••••" required {...register("password")} className="h-12 pl-11 bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all rounded-xl shadow-none" />
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                    {...register("password")}
+                                    className="h-12 pl-11 bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all rounded-xl shadow-none"
+                                />
                             </div>
                         </div>
 

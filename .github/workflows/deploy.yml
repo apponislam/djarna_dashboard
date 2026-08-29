@@ -24,7 +24,9 @@ jobs:
 
                       cd /srv/Djarna_Dashboard
 
-                      git pull origin main
+                      git fetch origin main
+                      git reset --hard origin/main
                       npm install
+                      rm -rf .next
                       npm run build
-                      pm2 restart Djarna_Dashboard
+                      pm2 restart Djarna_Dashboard --update-env
