@@ -767,6 +767,7 @@
             "title": "Connexion Admin",
             "description": "Accédez à votre tableau de bord",
             "phoneNumber": "Numéro de téléphone",
+            "phonePlaceholder": "Entrez votre numéro de téléphone",
             "password": "Mot de passe",
             "forgotPassword": "Mot de passe oublié?",
             "loginButton": "Connexion",

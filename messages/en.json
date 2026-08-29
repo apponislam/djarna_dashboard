@@ -767,6 +767,7 @@
             "title": "Admin Login",
             "description": "Access your dashboard",
             "phoneNumber": "Phone Number",
+            "phonePlaceholder": "Enter your phone number",
             "password": "Password",
             "forgotPassword": "Forgot password?",
             "loginButton": "Login",
