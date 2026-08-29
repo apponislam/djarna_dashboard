@@ -1,5 +1,13 @@
 # Djarna Admin Dashboard 🚀
 
+[![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-dashboard.djarna.com-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://dashboard.djarna.com)
+[![Google Play](https://img.shields.io/badge/Google_Play-com.mohamed.djarna-34A853?style=for-the-badge&logo=android&logoColor=white)](https://play.google.com/store/apps/details?id=com.mohamed.djarna)
+[![App Store](https://img.shields.io/badge/App_Store-Djarna_iOS-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/us/app/djarna/id6787214492)
+
+> 🖥️ **Live Admin Dashboard**: [https://dashboard.djarna.com](https://dashboard.djarna.com)  
+> 🤖 **Android Mobile App (Google Play)**: [com.mohamed.djarna](https://play.google.com/store/apps/details?id=com.mohamed.djarna)  
+> 🍏 **iOS Mobile App (Apple App Store)**: [Djarna on App Store](https://apps.apple.com/us/app/djarna/id6787214492)
+
 A comprehensive, enterprise-grade, multi-language **Admin Management Dashboard** built for the **Djarna E-Commerce & Marketplace Services Platform**. This application empowers platform administrators to manage users, verify identities, monitor transactions, mediate buyer-seller disputes, manage product categories, configure boost packages & commissions, track real-time analytics, and control global system configurations.
 
 ---
