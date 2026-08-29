@@ -21,6 +21,8 @@ export default function ReportsTable() {
     const [page, setPage] = useState(1);
     const debouncedSearch = useDebounce(searchTerm, 500);
     const t = useTranslations("reports.table");
+    const tc = useTranslations("common");
+    const tModal = useTranslations("reports.modal");
 
     const queryParams: any = {
         page,
@@ -179,12 +181,12 @@ export default function ReportsTable() {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2.5">
                                             <Avatar className="h-8 w-8 border border-slate-100">
-                                                <AvatarImage src={getImageUrl(item.reporter.photo)} alt={item.reporter.name} />
-                                                <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs">{item.reporter.name?.charAt(0).toUpperCase()}</AvatarFallback>
+                                                <AvatarImage src={getImageUrl(item.reporter?.photo)} alt={item.reporter?.name || "User"} />
+                                                <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-xs">{item.reporter?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                                             </Avatar>
                                             <div className="flex flex-col">
-                                                <span className="font-medium text-slate-900">{item.reporter.name}</span>
-                                                <span className="text-xs text-slate-400 font-mono truncate max-w-35">{item.reporter.email || item.reporter.phone}</span>
+                                                <span className="font-medium text-slate-900">{item.reporter?.name || tc("deletedUser")}</span>
+                                                <span className="text-xs text-slate-400 font-mono truncate max-w-35">{item.reporter?.email || item.reporter?.phone || "N/A"}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -194,13 +196,13 @@ export default function ReportsTable() {
                                         <div className="flex flex-col gap-0.5">
                                             {item.type === "LISTING" && item.reportedItem ? (
                                                 <>
-                                                    <span className="font-semibold text-slate-800 line-clamp-1">{item.reportedItem.title}</span>
+                                                    <span className="font-semibold text-slate-800 line-clamp-1">{item.reportedItem?.title || tc("deletedListing")}</span>
                                                     <span className="text-xs text-slate-500">
-                                                        {t("reportedTargetInfo.listingOwner")}: {item.reportedUser.name}
+                                                        {tModal("reportedTargetInfo.listingOwner")}: {item.reportedUser?.name || tc("deletedUser")}
                                                     </span>
                                                 </>
                                             ) : (
-                                                <span className="font-semibold text-slate-800">{item.reportedUser.name}</span>
+                                                <span className="font-semibold text-slate-800">{item.reportedUser?.name || tc("deletedUser")}</span>
                                             )}
                                         </div>
                                     </td>
@@ -216,7 +218,11 @@ export default function ReportsTable() {
                                     </td>
 
                                     {/* Created At */}
-                                    <td className="px-6 py-4 text-slate-500">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4 text-slate-500">
+                                        {item.createdAt && !isNaN(Date.parse(item.createdAt))
+                                            ? new Date(item.createdAt).toLocaleDateString()
+                                            : "N/A"}
+                                    </td>
 
                                     {/* Action */}
                                     <td className="px-6 py-4">

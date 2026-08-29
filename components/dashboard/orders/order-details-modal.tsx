@@ -25,6 +25,7 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
         skip: !id,
     });
     const t = useTranslations("orders.modal");
+    const tc = useTranslations("common");
 
     const order = orderData?.data;
 
@@ -77,17 +78,21 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
                             <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
                                 <div className="space-y-1">
                                     <p className="text-slate-500 font-medium">{t("productInfo.productTitle")}</p>
-                                    <p className="font-semibold text-slate-900">{order.product.title}</p>
+                                    <p className="font-semibold text-slate-900">{order.product?.title || tc("deletedProduct")}</p>
                                 </div>
 
-                                <div className="space-y-1">
-                                    <p className="text-slate-500 font-medium">{t("productInfo.totalAmount")}</p>
-                                    <p className="font-bold text-slate-900 text-base">{order.totalAmount.toLocaleString()} CFA</p>
-                                </div>
+                                  <div className="space-y-1">
+                                      <p className="text-slate-500 font-medium">{t("productInfo.totalAmount")}</p>
+                                      <p className="font-bold text-slate-900 text-base">{order.totalAmount?.toLocaleString() || "0"} CFA</p>
+                                  </div>
 
                                 <div className="space-y-1">
                                     <p className="text-slate-500 font-medium">{t("productInfo.orderDate")}</p>
-                                    <p className="font-semibold text-slate-900">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                    <p className="font-semibold text-slate-900">
+                                        {order.createdAt && !isNaN(Date.parse(order.createdAt))
+                                            ? new Date(order.createdAt).toLocaleDateString()
+                                            : "N/A"}
+                                    </p>
                                 </div>
 
                                 <div className="space-y-1">
@@ -114,19 +119,19 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
                             <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-5">
                                 <div className="flex items-center gap-2 mb-3">
                                     <p className="text-xs font-bold uppercase tracking-wider text-blue-600">{t("buyer")}</p>
-                                    {order.buyer.verifiedBadge && <ShieldCheck className="h-3.5 w-3.5 text-blue-500" />}
+                                    {order.buyer?.verifiedBadge && <ShieldCheck className="h-3.5 w-3.5 text-blue-500" />}
                                 </div>
-                                <p className="font-bold text-slate-900 mb-1">{order.buyer.name}</p>
-                                <p className="text-xs text-slate-500">{order.buyer.email || order.buyer.phone}</p>
+                                <p className="font-bold text-slate-900 mb-1">{order.buyer?.name || tc("deletedUser")}</p>
+                                <p className="text-xs text-slate-500">{order.buyer?.email || order.buyer?.phone || "N/A"}</p>
                             </div>
 
                             <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-5">
                                 <div className="flex items-center gap-2 mb-3">
                                     <p className="text-xs font-bold uppercase tracking-wider text-emerald-600">{t("seller")}</p>
-                                    {order.seller.verifiedBadge && <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />}
+                                    {order.seller?.verifiedBadge && <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />}
                                 </div>
-                                <p className="font-bold text-slate-900 mb-1">{order.seller.name}</p>
-                                <p className="text-xs text-slate-500">{order.seller.email || order.seller.phone}</p>
+                                <p className="font-bold text-slate-900 mb-1">{order.seller?.name || tc("deletedUser")}</p>
+                                <p className="text-xs text-slate-500">{order.seller?.email || order.seller?.phone || "N/A"}</p>
                             </div>
                         </div>
 
@@ -138,7 +143,7 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
                             <div className="p-4 space-y-2 text-sm">
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">{t("priceBreakdown.productPrice")}</span>
-                                    <span className="font-medium">{order.productPrice.toLocaleString()} CFA</span>
+                                    <span className="font-medium">{order.productPrice?.toLocaleString() || "0"} CFA</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">{t("priceBreakdown.buyerProtectionFee")}</span>
@@ -150,7 +155,7 @@ export default function OrderDetailsModal({ open, setOpen, id }: { open: boolean
                                 </div>
                                 <div className="pt-2 border-t border-slate-100 flex justify-between">
                                     <span className="font-bold text-slate-900">{t("priceBreakdown.totalAmount")}</span>
-                                    <span className="font-bold text-blue-600 text-base">{order.totalAmount.toLocaleString()} CFA</span>
+                                    <span className="font-bold text-blue-600 text-base">{order.totalAmount?.toLocaleString() || "0"} CFA</span>
                                 </div>
                             </div>
                         </div>

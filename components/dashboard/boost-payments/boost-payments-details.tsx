@@ -105,13 +105,17 @@ export default function BoostPaymentsDetails({ open, setOpen, payment }: BoostPa
                                         <div>
                                             <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">{t("createdAt")}</p>
                                             <p className="text-sm font-medium text-slate-700">
-                                                {new Date(detailedPayment.createdAt).toLocaleString()}
+                                                {detailedPayment.createdAt && !isNaN(Date.parse(detailedPayment.createdAt))
+                                                    ? new Date(detailedPayment.createdAt).toLocaleString()
+                                                    : t("notAvailable")}
                                             </p>
                                         </div>
                                         <div>
                                             <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">{t("paidAt")}</p>
                                             <p className="text-sm font-medium text-slate-700">
-                                                {detailedPayment.paidAt ? new Date(detailedPayment.paidAt).toLocaleString() : t("notAvailable")}
+                                                {detailedPayment.paidAt && !isNaN(Date.parse(detailedPayment.paidAt))
+                                                    ? new Date(detailedPayment.paidAt).toLocaleString()
+                                                    : t("notAvailable")}
                                             </p>
                                         </div>
                                     </div>

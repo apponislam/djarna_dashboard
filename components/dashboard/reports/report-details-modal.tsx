@@ -4,8 +4,9 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Loader2, XCircle, CheckCircle2, ShieldAlert, User, Package, Calendar } from "lucide-react";
+import { Loader2, XCircle, CheckCircle2, ShieldAlert, User, Package, Calendar, Trash2 } from "lucide-react";
 import { useGetReportByIdQuery, useUpdateReportStatusMutation, type TReportStatus } from "@/redux/features/report/reportApi";
+import { useDeleteProductByAdminMutation } from "@/redux/features/product/productApi";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -19,10 +20,12 @@ export default function ReportDetailsModal({
     reportId: string | null;
 }) {
     const t = useTranslations("reports.modal");
+    const tc = useTranslations("common");
     const { data, isLoading, isError } = useGetReportByIdQuery(reportId as string, {
         skip: !reportId || !open,
     });
     const [updateStatus, { isLoading: isUpdating }] = useUpdateReportStatusMutation();
+    const [deleteProductByAdmin, { isLoading: isDeletingProduct }] = useDeleteProductByAdminMutation();
 
     const report = data?.data;
 
@@ -41,6 +44,19 @@ export default function ReportDetailsModal({
         } catch (error) {
             console.error("Failed to update status", error);
             toast.error(t("actions.errorMessage"));
+        }
+    };
+
+    const handleDeleteProduct = async () => {
+        const productId = report?.reportedItem?._id;
+        if (!productId) return;
+        try {
+            await deleteProductByAdmin({ id: productId, reportId: reportId || undefined }).unwrap();
+            toast.success(t("actions.deleteProductSuccess"));
+            setOpen(false);
+        } catch (error) {
+            console.error("Failed to delete product", error);
+            toast.error(t("actions.deleteProductError"));
         }
     };
 
@@ -124,7 +140,9 @@ export default function ReportDetailsModal({
                                 </p>
                                 <p className="font-medium text-slate-950 flex items-center gap-1.5 text-sm">
                                     <Calendar className="h-4 w-4 text-slate-400" />
-                                    {new Date(report.createdAt).toLocaleString()}
+                                    {report.createdAt && !isNaN(Date.parse(report.createdAt))
+                                        ? new Date(report.createdAt).toLocaleString()
+                                        : "N/A"}
                                 </p>
                             </div>
                             <div className="col-span-1 sm:col-span-2">
@@ -154,30 +172,30 @@ export default function ReportDetailsModal({
                                 {t("reportedTargetInfo.title")}
                             </h3>
                             <div className="flex flex-col sm:flex-row gap-4 items-start">
-                                {report.reportedItem.images && report.reportedItem.images.length > 0 && (
+                                {report.reportedItem?.images && report.reportedItem.images.length > 0 && (
                                     <div className="w-24 h-24 relative rounded-lg overflow-hidden border border-amber-200 shrink-0 bg-white shadow-sm">
                                         <img
                                             src={getImageUrl(report.reportedItem.images[0])}
-                                            alt={report.reportedItem.title}
+                                            alt={report.reportedItem.title || "Listing"}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
                                 )}
                                 <div className="space-y-1.5 flex-1">
                                     <h4 className="text-base font-bold text-slate-900">
-                                        {report.reportedItem.title}
+                                        {report.reportedItem?.title || tc("deletedListing")}
                                     </h4>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm text-slate-600">
                                         <p>
                                             <span className="font-medium text-slate-400">{t("reportedTargetInfo.listingPrice")}:</span>{" "}
                                             <span className="font-semibold text-amber-700">
-                                                {report.reportedItem.price.toLocaleString()} CFA
+                                                {report.reportedItem?.price !== undefined && report.reportedItem?.price !== null ? report.reportedItem.price.toLocaleString() : "0"} CFA
                                             </span>
                                         </p>
                                         <p>
                                             <span className="font-medium text-slate-400">{t("reportedTargetInfo.listingOwner")}:</span>{" "}
                                             <span className="font-semibold text-slate-800">
-                                                {report.reportedUser.name}
+                                                {report.reportedUser?.name || tc("deletedUser")}
                                             </span>
                                         </p>
                                     </div>
@@ -196,26 +214,26 @@ export default function ReportDetailsModal({
                             </h3>
                             <div className="flex items-center gap-3 mb-3">
                                 <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
-                                    <AvatarImage src={getImageUrl(report.reporter.photo)} alt={report.reporter.name} />
+                                    <AvatarImage src={getImageUrl(report.reporter?.photo)} alt={report.reporter?.name || "Reporter"} />
                                     <AvatarFallback className="bg-blue-50 text-blue-600 font-bold text-sm">
-                                        {report.reporter.name?.charAt(0).toUpperCase()}
+                                        {report.reporter?.name?.charAt(0).toUpperCase() || "U"}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reporter.name}
-                                        {report.reporter.verifiedBadge && (
+                                        {report.reporter?.name || tc("deletedUser")}
+                                        {report.reporter?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reporterInfo.verified")}
                                             </Badge>
                                         )}
                                     </h4>
-                                    <p className="text-xs text-slate-400">{report.reporter.verifiedBadge ? t("reporterInfo.verified") : t("reporterInfo.standard")}</p>
+                                    <p className="text-xs text-slate-400">{report.reporter?.verifiedBadge ? t("reporterInfo.verified") : t("reporterInfo.standard")}</p>
                                 </div>
                             </div>
                             <div className="space-y-1 text-xs text-slate-600">
-                                <p><span className="font-medium text-slate-400">{t("reporterInfo.email")}:</span> {report.reporter.email || "-"}</p>
-                                <p><span className="font-medium text-slate-400">{t("reporterInfo.phone")}:</span> {report.reporter.phone || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reporterInfo.email")}:</span> {report.reporter?.email || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reporterInfo.phone")}:</span> {report.reporter?.phone || "-"}</p>
                             </div>
                         </div>
 
@@ -227,54 +245,74 @@ export default function ReportDetailsModal({
                             </h3>
                             <div className="flex items-center gap-3 mb-3">
                                 <Avatar className="h-10 w-10 border border-slate-100 shadow-sm">
-                                    <AvatarImage src={getImageUrl(report.reportedUser.photo)} alt={report.reportedUser.name} />
+                                    <AvatarImage src={getImageUrl(report.reportedUser?.photo)} alt={report.reportedUser?.name || "Reported User"} />
                                     <AvatarFallback className="bg-red-50 text-red-600 font-bold text-sm">
-                                        {report.reportedUser.name?.charAt(0).toUpperCase()}
+                                        {report.reportedUser?.name?.charAt(0).toUpperCase() || "U"}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div>
                                     <h4 className="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
-                                        {report.reportedUser.name}
-                                        {report.reportedUser.verifiedBadge && (
+                                        {report.reportedUser?.name || tc("deletedUser")}
+                                        {report.reportedUser?.verifiedBadge && (
                                             <Badge className="bg-blue-500 text-white border-none py-0.5 px-1.5 text-[10px] font-semibold">
                                                 {t("reportedTargetInfo.verified")}
                                             </Badge>
                                         )}
                                     </h4>
-                                    <p className="text-xs text-slate-400">{report.reportedUser.verifiedBadge ? t("reportedTargetInfo.verified") : t("reportedTargetInfo.standard")}</p>
+                                    <p className="text-xs text-slate-400">{report.reportedUser?.verifiedBadge ? t("reportedTargetInfo.verified") : t("reportedTargetInfo.standard")}</p>
                                 </div>
                             </div>
                             <div className="space-y-1 text-xs text-slate-600">
-                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.email")}:</span> {report.reportedUser.email || "-"}</p>
-                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.phone")}:</span> {report.reportedUser.phone || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.email")}:</span> {report.reportedUser?.email || "-"}</p>
+                                <p><span className="font-medium text-slate-400">{t("reportedTargetInfo.phone")}:</span> {report.reportedUser?.phone || "-"}</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Action Controls */}
-                    {report.status !== "RESOLVED" && (
-                        <div className="pt-4 border-t space-y-3">
-                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                                {t("actions.title")}
-                            </h3>
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                {report.status === "OPEN" && (
-                                    <Button
-                                        onClick={() => handleUpdateStatus("IN_REVIEW")}
-                                        disabled={isUpdating}
-                                        variant="outline"
-                                        className="flex-1 py-5 border-orange-200 text-orange-700 hover:bg-orange-50 cursor-pointer text-sm font-semibold"
-                                    >
-                                        {isUpdating ? (
-                                            <>
-                                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                                {t("actions.updating")}
-                                            </>
-                                        ) : (
-                                            t("actions.markInReview")
-                                        )}
-                                    </Button>
-                                )}
+                    <div className="pt-4 border-t space-y-3">
+                        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            {t("actions.title")}
+                        </h3>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            {report.type === "LISTING" && report.reportedItem?._id && (
+                                <Button
+                                    onClick={handleDeleteProduct}
+                                    disabled={isDeletingProduct}
+                                    variant="outline"
+                                    className="flex-1 py-5 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer text-sm font-semibold"
+                                >
+                                    {isDeletingProduct ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            {t("actions.deletingProduct")}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Trash2 className="w-4 h-4 mr-2" />
+                                            {t("actions.deleteProduct")}
+                                        </>
+                                    )}
+                                </Button>
+                            )}
+                            {report.status === "OPEN" && (
+                                <Button
+                                    onClick={() => handleUpdateStatus("IN_REVIEW")}
+                                    disabled={isUpdating}
+                                    variant="outline"
+                                    className="flex-1 py-5 border-orange-200 text-orange-700 hover:bg-orange-50 cursor-pointer text-sm font-semibold"
+                                >
+                                    {isUpdating ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            {t("actions.updating")}
+                                        </>
+                                    ) : (
+                                        t("actions.markInReview")
+                                    )}
+                                </Button>
+                            )}
+                            {report.status !== "RESOLVED" && (
                                 <Button
                                     onClick={() => handleUpdateStatus("RESOLVED")}
                                     disabled={isUpdating}
@@ -289,9 +327,9 @@ export default function ReportDetailsModal({
                                         t("actions.markResolved")
                                     )}
                                 </Button>
-                            </div>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>

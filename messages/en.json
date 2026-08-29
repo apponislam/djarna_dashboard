@@ -14,7 +14,10 @@
         "reset": "Reset",
         "search": "Search",
         "active": "Active",
-        "suspended": "Suspended"
+        "suspended": "Suspended",
+        "deletedUser": "Deleted User",
+        "deletedProduct": "Deleted Product",
+        "deletedListing": "Deleted Listing"
     },
     "dashboard": {
         "title": "Dashboard Overview",
@@ -647,6 +650,10 @@
                 "title": "Administrative Actions",
                 "markInReview": "Mark Under Review",
                 "markResolved": "Mark Resolved",
+                "deleteProduct": "Delete Product",
+                "deletingProduct": "Deleting Product...",
+                "deleteProductSuccess": "Product deleted successfully by admin",
+                "deleteProductError": "Failed to delete product",
                 "updating": "Updating Status...",
                 "successMessage": "Report status updated successfully",
                 "errorMessage": "Failed to update report status"

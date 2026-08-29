@@ -14,7 +14,10 @@
         "reset": "Réinitialiser",
         "search": "Rechercher",
         "active": "Actif",
-        "suspended": "Suspendu"
+        "suspended": "Suspendu",
+        "deletedUser": "Utilisateur supprimé",
+        "deletedProduct": "Produit supprimé",
+        "deletedListing": "Annonce supprimée"
     },
     "dashboard": {
         "title": "Aperçu",
@@ -647,6 +650,10 @@
                 "title": "Actions Administratives",
                 "markInReview": "Marquer En cours",
                 "markResolved": "Marquer Résolu",
+                "deleteProduct": "Supprimer le Produit",
+                "deletingProduct": "Suppression du produit...",
+                "deleteProductSuccess": "Produit supprimé avec succès par l'administrateur",
+                "deleteProductError": "Échec de la suppression du produit",
                 "updating": "Mise à jour du statut...",
                 "successMessage": "Statut du signalement mis à jour avec succès",
                 "errorMessage": "Échec de la mise à jour du statut"
