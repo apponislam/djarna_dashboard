@@ -1,18 +1,8 @@
 # Djarna Admin Dashboard 🚀
 
-<p align="left">
-  <a href="https://dashboard.djarna.com">
-    <img src="https://img.shields.io/badge/Live_Dashboard-VISIT_SITE-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Admin Dashboard" />
-  </a>
-  &nbsp;
-  <a href="https://play.google.com/store/apps/details?id=com.mohamed.djarna">
-    <img src="https://raw.githubusercontent.com/stefan-niedermann/nextcloud-deck-of-cards/master/badges/google-play-badge.svg" height="42" alt="Get it on Google Play" />
-  </a>
-  &nbsp;
-  <a href="https://apps.apple.com/us/app/djarna/id6787214492">
-    <img src="https://raw.githubusercontent.com/stefan-niedermann/nextcloud-deck-of-cards/master/badges/app-store-badge.svg" height="42" alt="Download on the App Store" />
-  </a>
-</p>
+[![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-VISIT_SITE-2563EB?style=for-the-badge&logo=googlechrome&logoColor=white)](https://dashboard.djarna.com)
+[![Google Play](https://img.shields.io/badge/Google_Play-GET_IT_ON-34A853?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.mohamed.djarna)
+[![App Store](https://img.shields.io/badge/App_Store-DOWNLOAD_ON-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/us/app/djarna/id6787214492)
 
 > 🖥️ **Live Admin Dashboard**: [https://dashboard.djarna.com](https://dashboard.djarna.com)  
 > 🤖 **Android Mobile App (Google Play)**: [com.mohamed.djarna](https://play.google.com/store/apps/details?id=com.mohamed.djarna)  
