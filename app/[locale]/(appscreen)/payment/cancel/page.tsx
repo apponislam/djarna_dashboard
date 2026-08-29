@@ -9,7 +9,7 @@ export default function PaymentCancelPage() {
     const [showAppStores, setShowAppStores] = useState(false);
     const t = useTranslations("appscreen.payment");
 
-    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=your.app.id";
+    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.mohamed.djarna";
     const APP_STORE_URL = "https://apps.apple.com/app/your-app-id";
 
     useEffect(() => {

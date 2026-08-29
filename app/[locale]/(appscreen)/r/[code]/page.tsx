@@ -11,8 +11,8 @@ export default function ReferralPage({ params }: { params: Promise<{ code: strin
     const [showAppStores, setShowAppStores] = useState(false);
     const t = useTranslations("appscreen");
 
-    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=your.app.id";
-    const APP_STORE_URL = "https://apps.apple.com/app/your-app-id";
+    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.mohamed.djarna";
+    const APP_STORE_URL = "https://apps.apple.com/us/app/djarna/id6787214492";
 
     const { data, isLoading, error } = useValidateReferralCodeQuery(code);
 

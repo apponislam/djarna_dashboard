@@ -9,8 +9,8 @@ export default function PaymentSuccessPage() {
     const [showAppStores, setShowAppStores] = useState(false);
     const t = useTranslations("appscreen.payment");
 
-    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=your.app.id";
-    const APP_STORE_URL = "https://apps.apple.com/app/your-app-id";
+    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.mohamed.djarna";
+    const APP_STORE_URL = "https://apps.apple.com/us/app/djarna/id6787214492";
 
     useEffect(() => {
         setTimeout(() => {
@@ -54,9 +54,7 @@ export default function PaymentSuccessPage() {
                                     {t("downloadAppStore")}
                                 </Button>
                             )}
-                            {!isAndroid && !isIOS && (
-                                <p className="text-sm text-slate-400">{t("mobileOnly")}</p>
-                            )}
+                            {!isAndroid && !isIOS && <p className="text-sm text-slate-400">{t("mobileOnly")}</p>}
                         </div>
                     </div>
                 )}
